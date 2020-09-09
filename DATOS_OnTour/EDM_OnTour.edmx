@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OnTourModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="ID_Cargo_Emp" />
+          </Key>
+          <Property Name="ID_Cargo_Emp" Type="int" Nullable="false" />
+          <Property Name="Descripcion_Cargo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contrato">
+          <Key>
+            <PropertyRef Name="ID_Contrato" />
+          </Key>
+          <Property Name="ID_Contrato" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Destino" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Valor_Contrato" Type="varchar" MaxLength="20" />
+          <Property Name="Fecha_Salida" Type="datetime" />
+          <Property Name="Fecha_llegada" Type="datetime" />
+          <Property Name="Escuela" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="N_alumnos" Type="int" Nullable="false" />
+          <Property Name="ID_seguro" Type="varchar" MaxLength="20" />
+          <Property Name="Run_Emp" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="Run_Emp" />
+          </Key>
+          <Property Name="Run_Emp" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nombre_Emp" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Apellido_Emp" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ID_Cargo_Emp" Type="int" Nullable="false" />
+          <Property Name="Usuario_Emp" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Contraseña_Emp" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seguro">
+          <Key>
+            <PropertyRef Name="ID_seguro" />
+          </Key>
+          <Property Name="ID_seguro" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Empresa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Info_seguro" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Contrato_Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Run_Emp" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="Run_Emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contrato_Seguro">
+          <End Role="Seguro" Type="Self.Seguro" Multiplicity="0..1" />
+          <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seguro">
+              <PropertyRef Name="ID_seguro" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="ID_seguro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleados_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID_Cargo_Emp" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="ID_Cargo_Emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnTourModelStoreContainer">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contrato" EntityType="Self.Contrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seguro" EntityType="Self.Seguro" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Contrato_Empleados" Association="Self.FK_Contrato_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contrato_Seguro" Association="Self.FK_Contrato_Seguro">
+            <End Role="Seguro" EntitySet="Seguro" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleados_Cargo" Association="Self.FK_Empleados_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnTourModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="ID_Cargo_Emp" />
+          </Key>
+          <Property Name="ID_Cargo_Emp" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion_Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Empleados_Cargo" FromRole="Cargo" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Contrato">
+          <Key>
+            <PropertyRef Name="ID_Contrato" />
+          </Key>
+          <Property Name="ID_Contrato" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Destino" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Valor_Contrato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Salida" Type="DateTime" Precision="3" />
+          <Property Name="Fecha_llegada" Type="DateTime" Precision="3" />
+          <Property Name="Escuela" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="N_alumnos" Type="Int32" Nullable="false" />
+          <Property Name="ID_seguro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Run_Emp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Contrato_Empleados" FromRole="Contrato" ToRole="Empleados" />
+          <NavigationProperty Name="Seguro" Relationship="Self.FK_Contrato_Seguro" FromRole="Contrato" ToRole="Seguro" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="Run_Emp" />
+          </Key>
+          <Property Name="Run_Emp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre_Emp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido_Emp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Cargo_Emp" Type="Int32" Nullable="false" />
+          <Property Name="Usuario_Emp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contraseña_Emp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cargo" Relationship="Self.FK_Empleados_Cargo" FromRole="Empleados" ToRole="Cargo" />
+          <NavigationProperty Name="Contrato" Relationship="Self.FK_Contrato_Empleados" FromRole="Empleados" ToRole="Contrato" />
+        </EntityType>
+        <EntityType Name="Seguro">
+          <Key>
+            <PropertyRef Name="ID_seguro" />
+          </Key>
+          <Property Name="ID_seguro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Empresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Info_seguro" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contrato" Relationship="Self.FK_Contrato_Seguro" FromRole="Seguro" ToRole="Contrato" />
+        </EntityType>
+        <Association Name="FK_Empleados_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID_Cargo_Emp" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="ID_Cargo_Emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contrato_Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Run_Emp" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="Run_Emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contrato_Seguro">
+          <End Role="Seguro" Type="Self.Seguro" Multiplicity="0..1" />
+          <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seguro">
+              <PropertyRef Name="ID_seguro" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="ID_seguro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnTourEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" />
+          <EntitySet Name="Contrato" EntityType="Self.Contrato" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" />
+          <EntitySet Name="Seguro" EntityType="Self.Seguro" />
+          <AssociationSet Name="FK_Empleados_Cargo" Association="Self.FK_Empleados_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contrato_Empleados" Association="Self.FK_Contrato_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contrato_Seguro" Association="Self.FK_Contrato_Seguro">
+            <End Role="Seguro" EntitySet="Seguro" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnTourModelStoreContainer" CdmEntityContainer="OnTourEntities">
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="OnTourModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="ID_Cargo_Emp" ColumnName="ID_Cargo_Emp" />
+                <ScalarProperty Name="Descripcion_Cargo" ColumnName="Descripcion_Cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contrato">
+            <EntityTypeMapping TypeName="OnTourModel.Contrato">
+              <MappingFragment StoreEntitySet="Contrato">
+                <ScalarProperty Name="ID_Contrato" ColumnName="ID_Contrato" />
+                <ScalarProperty Name="Destino" ColumnName="Destino" />
+                <ScalarProperty Name="Valor_Contrato" ColumnName="Valor_Contrato" />
+                <ScalarProperty Name="Fecha_Salida" ColumnName="Fecha_Salida" />
+                <ScalarProperty Name="Fecha_llegada" ColumnName="Fecha_llegada" />
+                <ScalarProperty Name="Escuela" ColumnName="Escuela" />
+                <ScalarProperty Name="N_alumnos" ColumnName="N_alumnos" />
+                <ScalarProperty Name="ID_seguro" ColumnName="ID_seguro" />
+                <ScalarProperty Name="Run_Emp" ColumnName="Run_Emp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="OnTourModel.Empleados">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="Run_Emp" ColumnName="Run_Emp" />
+                <ScalarProperty Name="Nombre_Emp" ColumnName="Nombre_Emp" />
+                <ScalarProperty Name="Apellido_Emp" ColumnName="Apellido_Emp" />
+                <ScalarProperty Name="ID_Cargo_Emp" ColumnName="ID_Cargo_Emp" />
+                <ScalarProperty Name="Usuario_Emp" ColumnName="Usuario_Emp" />
+                <ScalarProperty Name="Contraseña_Emp" ColumnName="Contraseña_Emp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seguro">
+            <EntityTypeMapping TypeName="OnTourModel.Seguro">
+              <MappingFragment StoreEntitySet="Seguro">
+                <ScalarProperty Name="ID_seguro" ColumnName="ID_seguro" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="Info_seguro" ColumnName="Info_seguro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

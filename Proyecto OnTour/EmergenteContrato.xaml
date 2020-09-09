@@ -1,0 +1,26 @@
+﻿<Controls:MetroWindow
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Proyecto_OnTour.EmergenteContrato"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proyecto_OnTour"
+        mc:Ignorable="d"
+        Title="EmergenteContrato" Height="300" Width="1000" Background="#FFA0BAAD">
+    <Grid>
+        <Rectangle Margin="20,0,20,20" Fill="White" Height="229" VerticalAlignment="Bottom">
+            <Rectangle.Effect>
+                <DropShadowEffect Color="#FF6D9380" BlurRadius="30" Direction="300" />
+            </Rectangle.Effect>
+        </Rectangle>
+        <Label  Content="Contrato encontrado:" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,0,796,174" VerticalAlignment="Bottom" Width="166" Height="40" Background="{x:Null}" FontFamily="Cambria" FontSize="16" Foreground="#FF101111" VerticalContentAlignment="Center"/>
+        <Label x:Name="SinResultado" Content="Busqueda sin resultados" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,0,807,122" VerticalAlignment="Bottom" Width="155" Height="24" Background="{x:Null}" FontFamily="Cambria" FontSize="14" Foreground="#FF101111" VerticalContentAlignment="Center"/>
+        <DataGrid x:Name="Grid_seleccionarContrato"  Height="139" Margin="0,0,30,30" VerticalAlignment="Bottom" Background="{x:Null}" RowDetailsVisibilityMode="Collapsed" AlternatingRowBackground="#FF7B9889" AreRowDetailsFrozen="True" RowBackground="#FF3481A4"  SelectionChanged="Grid_seleccionarContrato_SelectionChanged" HorizontalAlignment="Right" Width="932" />
+        <Button Content="Volver" Height="40" Width="105" Margin="857,0,0,175" HorizontalContentAlignment="Center" Foreground="#FFFFFFEE" Background="#CC01628D" FontFamily="Cambria" FontSize="16" FontWeight="Normal" Click="Button_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+        <Grid x:Name="Grid_BuscadorUsuario" Margin="0,0,340,169" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="456" Visibility="Collapsed">
+            <TextBox x:Name="TXT_NumCOn_BUSCAR" HorizontalAlignment="Right" Height="40" Margin="0,0,188,10" TextWrapping="Wrap" TextAlignment="Center" Text="" VerticalAlignment="Bottom" Width="258" Background="#FFDBDBDB" CaretBrush="{x:Null}" Foreground="#FF8F92A0" FontFamily="Cambria" FontSize="16" VerticalContentAlignment="Center" SelectionBrush="{x:Null}" />
+            <Button Content="Buscar" Height="40" Width="87" Margin="0,0,96,10" HorizontalContentAlignment="Center" Foreground="#FFFFFFEE" Background="#CC01628D" FontFamily="Cambria" FontSize="16" FontWeight="Normal" Click="Button_Click_1" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>
